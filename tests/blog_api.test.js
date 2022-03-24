@@ -87,6 +87,39 @@ test('created a blog post successfully', async () => {
     })
   })
 
+  test('a blog can be deleted', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+  
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(204)
+  
+    const blogsAtEnd = await helper.blogsInDb()
+  
+    expect(blogsAtEnd).toHaveLength(
+      helper.initialBlogs.length - 1
+    )
+  
+    const titleList = blogsAtEnd.map(r => r.title)
+  
+    expect(titleList).not.toContain(blogToDelete.title)
+  })
+
+  test('a blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+    const updateLikes = {likes: 54}
+    const response = await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updateLikes)
+      .expect(200)
+      .expect('Content-Type',/application\/json/)
+
+    expect(response.body.likes).toBe(54)  
+  })
+
+
 afterAll(() => {
     mongoose.connection.close()
 })
