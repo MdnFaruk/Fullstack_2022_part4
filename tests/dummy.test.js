@@ -107,7 +107,7 @@ describe('favourite blog test', () => {
     expect(result).toEqual(blog);
   });
 
-  test('most like of the blog test', () => {
+  test('most like of the blog test', () => { 
     const blog = {
       author: "Edsger W. Dijkstra",
       likes: 17
