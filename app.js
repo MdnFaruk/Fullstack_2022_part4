@@ -26,13 +26,13 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 //app.use(middleware.userExtractor) // use the middleware in all routes
-
+  
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/blogs', blogsRouter)
 //app.use('/api/blogs', middleware.userExtractor ,blogsRouter) // use the middleware only in /api/blogs routes
-
+  
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
-
+  
 module.exports = app

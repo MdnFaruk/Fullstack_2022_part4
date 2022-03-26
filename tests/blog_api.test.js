@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
-const Blog = require("../models/blog");
+const Blog = require('../models/blog')
 const helper = require('./test_helper')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
@@ -41,9 +42,9 @@ describe('when there is initially some blogs saved', () => {
 
   test.only('unauthorized person can not create blog', async () => {
     const newblog = {
-      title: "Physics",
-      author: "Md",
-      url: "http://wikipedia.com",
+      title: 'Physics',
+      author: 'Md',
+      url: 'http://wikipedia.com',
       likes: 98,
     }
 
@@ -56,9 +57,9 @@ describe('when there is initially some blogs saved', () => {
 
   test('created a blog post successfully', async () => {
     const newblog = {
-      title: "Physics",
-      author: "Md",
-      url: "http://wikipedia.com",
+      title: 'Physics',
+      author: 'Md',
+      url: 'http://wikipedia.com',
       likes: 98,
     }
 
@@ -78,9 +79,9 @@ describe('when there is initially some blogs saved', () => {
 
   test('default like value 0, for missing like value request', async () => {
     const newblog = {
-      title: "Math",
-      author: "Haque",
-      url: "http://gitmedia.com",
+      title: 'Math',
+      author: 'Haque',
+      url: 'http://gitmedia.com',
     }
 
     const response = await api
@@ -97,8 +98,8 @@ describe('when there is initially some blogs saved', () => {
 
     test('url missing', async () => {
       const newblog1 = {
-        title: "Biology",
-        author: "Haque",
+        title: 'Biology',
+        author: 'Haque',
         likes: 13,
       }
       await api
@@ -110,8 +111,8 @@ describe('when there is initially some blogs saved', () => {
 
     test('title missing', async () => {
       const newblog2 = {
-        author: "Haque",
-        url: "http://www.com",
+        author: 'Haque',
+        url: 'http://www.com',
         likes: 13,
       }
       await api
@@ -195,7 +196,7 @@ describe('when there is initially one user in db', () => {
       password: 'mdfaruk',
     }
     const response = await api
-      .post(`/api/users`)
+      .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
@@ -210,7 +211,7 @@ describe('when there is initially one user in db', () => {
       password: 'io',
     }
     const response = await api
-      .post(`/api/users`)
+      .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
