@@ -37,8 +37,9 @@ blogsRouter.post('/',userExtractor, async (request, response, next) => {
     const blog = new Blog({ ...request.body, user: user._id })
 
     blog.likes = blog?.likes ?? 0
-    if (!(blog?.title && blog?.url)) response.status(400).json('title or url missing')
-
+    if (!(blog?.title && blog?.url)) {
+      return response.status(400).json({error: 'title or url missing'})
+    }
     const savedBlog = await blog.save()
     user.blogs = [...user.blogs, savedBlog._id]
     await user.save()
@@ -66,7 +67,7 @@ blogsRouter.delete('/:id', userExtractor, async (request, response, next) => {
     const blog = await Blog.findById(request.params.id)
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
     
-/*     if (!decodedToken.id) {
+    /*     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' })
     } */
     const user = request.user
